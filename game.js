@@ -5,14 +5,28 @@ module.exports = {
   
 
   function scoreFrame (frame, nextFrame) {
-    let frameScore = frame[0] + frame[1];
-    if (frameScore == 10 && frame[0] != 10) {
-        frameScore += nextFrame[0]
+    let ballOne = frame[0]
+    let ballTwo = frame[1]
+    let nextBallOne = null
+    let nextBallTwo = null
+    if (nextFrame) {
+    nextBallOne = nextFrame[0]
+    nextBallTwo = nextFrame[1]
     }
-    if (frame[0] == 10) {
-        frameScore += nextFrame[0] + nextFrame[1]
+
+    let frameScore = ballOne + ballTwo;
+    if (isSpare(ballOne, ballTwo)) {
+        frameScore += nextBallOne
+    }
+    if (ballOne == 10) {
+        
+        frameScore += nextBallOne + nextBallTwo
     }
     return frameScore
 }
 
-
+function isSpare(ballOne, ballTwo) {
+    if (ballOne + ballTwo == 10 && ballOne != 10) {
+        return true
+    }
+}
