@@ -25,3 +25,11 @@ test('test setup working', () => {
     const actual = game.scoreFrame(frame, nextFrame)
     expect(actual).toBe(expected)
 })
+
+test('scores a single strike frame', () => {
+    const frame = [10, 0]
+    const nextFrame = [4, 5]
+    const expected = 19
+    const actual = game.scoreFrame(frame, nextFrame)
+    expect(actual).toBe(expected)
+})
