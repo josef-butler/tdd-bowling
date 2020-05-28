@@ -60,3 +60,30 @@ test('scores a spare in the 10th frame', () => {
     const actual = game.scoreGame(gameFrames)
     expect(actual).toBe(expected);
 })
+
+// test('scores a single strike in the 10th frame', () => {
+//   const gameFrames = [
+//     [1, 2], [2, 3], [5, 4], [1, 7], [7, 2], [4, 3], [2, 1], [5, 2], [7, 0], [10, 7, 0]
+//   ]
+//   const expected = 
+//   const actual = game.scoreGame(gameFrames)
+//   expect(actual).toBe(expected);
+// })
+
+// test('scores a double strike in the 10th frame', () => {
+//   const gameFrames = [
+//     [1, 2], [2, 3], [5, 4], [1, 7], [7, 2], [4, 3], [2, 1], [5, 2], [7, 0], [10, 10, 3]
+//   ]
+//   const expected = 71
+//   const actual = game.scoreGame(gameFrames)
+//   expect(actual).toBe(expected);
+// })
+
+test('scores a perfect game', () => {
+  const gameFrames = [
+    [10, 10], [10, 10], [10, 10], [10, 10], [10, 10], [10, 10], [10, 10], [10, 10], [10, 10], [10, 10, 10]
+  ]
+  const expected = 300
+  const actual = game.scoreGame(gameFrames)
+  expect(actual).toBe(expected);
+})
