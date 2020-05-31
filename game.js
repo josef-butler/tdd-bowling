@@ -15,6 +15,8 @@ function scoreGame(gameFrames) {
 
 function scoreFrame(frame, nextFrame, thirdFrame) {
 
+  let frameScore = 0
+  
   let ballOne = frame[0]
   let ballTwo = frame[1]
   let ballThree = frame[2]
@@ -35,47 +37,54 @@ function scoreFrame(frame, nextFrame, thirdFrame) {
     thirdBallTwo = thirdFrame[1]
   }
 
-  let frameScore = ballOne + ballTwo;
-
-  if (isSpare(frame, ballOne, ballTwo)) {
-    frameScore += nextBallOne
-  }
-
-  if (isSingleStrike(frame, ballOne, nextBallOne)) {
-    frameScore += nextBallOne + nextBallTwo
-  }
-
-  if (isDoubleStrike(frame, ballOne, nextBallOne)) {
-    frameScore += nextBallOne + thirdBallOne
-  }
-
-  if (isStrikeOrSpareLastFrame(frame, ballOne, ballTwo)) {
-    frameScore += ballThree;
-  }
+  frameScore += isStandardFrame(frame, ballOne, ballTwo);
+  frameScore += isSpare(frame, ballOne, ballTwo, nextBallOne);
+  frameScore += isSingleStrike(frame, ballOne, nextBallOne, nextBallTwo);
+  frameScore += isDoubleStrike(frame, ballOne, nextBallOne, nextBallTwo, thirdBallOne);
+  frameScore += isLastFrame(frame, ballOne, ballTwo, ballThree);
 
   return frameScore
 }
 
-function isSpare(frame, ballOne, ballTwo) {
-  if (ballOne + ballTwo == 10 && ballOne != 10 && frame.length != 3) {
-    return true
+function isStandardFrame(frame, ballOne, ballTwo) {
+  if (frame.length != 3 && ballOne + ballTwo != 10) {
+    return ballOne + ballTwo;
+  } else {
+    return 0;
   }
 }
 
-function isSingleStrike(frame, ballOne, nextBallOne) {
-  if (ballOne == 10 && nextBallOne != 10 && frame.length != 3) {
-    return true
+
+function isSpare(frame, ballOne, ballTwo, nextBallOne) {
+  if (frame.length != 3 && ballOne + ballTwo == 10 && ballOne != 10) {
+    return ballOne + ballTwo + nextBallOne;
+  } else {
+    return 0;
   }
 }
 
-function isDoubleStrike(frame, ballOne, nextBallOne) {
-  if (ballOne == 10 && nextBallOne == 10 && frame.length != 3) {
-    return true
+function isSingleStrike(frame, ballOne, nextBallOne, nextBallTwo) {
+  if (frame.length != 3 && ballOne == 10 && nextBallOne != 10) {
+    return ballOne + nextBallOne + nextBallTwo
+  } else {
+    return 0;
   }
 }
 
-function isStrikeOrSpareLastFrame(frame, ballOne, ballTwo) {
-  if (frame.length == 3 && (ballOne == 10 || ballOne + ballTwo == 10)) {
-    return true
+function isDoubleStrike(frame, ballOne, nextBallOne, nextBallTwo, thirdBallOne) {
+  if (frame.length != 3 && ballOne == 10 && nextBallOne == 10 && thirdBallOne != null) {
+    return ballOne + nextBallOne + thirdBallOne;
+  } else if (frame.length != 3 && ballOne == 10 && nextBallOne == 10 && thirdBallOne == null) {
+    return ballOne + nextBallOne + nextBallTwo;
+  } else {
+    return 0;
+  }
+}
+
+function isLastFrame(frame, ballOne, ballTwo, ballThree) {
+  if (frame.length == 3) {
+    return ballOne + ballTwo + ballThree;
+  } else {
+    return 0;
   }
 }
