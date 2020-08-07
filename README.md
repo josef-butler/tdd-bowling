@@ -6,7 +6,7 @@ Given an array of frames for a single player, [game.js](/game.js) will calculate
 
 The main aim of this was to help us become familiar with test-driven development (TDD) while working on our JavaScript skills.
 
-## Tests:
+## Tests
 
 - Initial test setup (Jest is working)
 - Gutterball frames
